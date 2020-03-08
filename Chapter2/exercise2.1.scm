@@ -1,5 +1,11 @@
 #lang scheme
 
+; Define(make-rat ⟨n⟩ ⟨d⟩) returns the rational number whose numerator
+; is the integer ⟨n⟩ and whose denominator is the integer ⟨d⟩.
+; make-rat should normalize the sign so that if the rational number is positive,
+; both the numerator and denominator are positive, and if
+; the rational number is negative, only the numerator is negative.
+
 (define (make-rat n d)
   (let ((numer (/ n (gcd n d)))
         (denom (/ d (gcd n d))))
