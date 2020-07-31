@@ -1,4 +1,8 @@
 #lang scheme
+; Define a procedure square-tree analogous
+; to the square-list procedure of Exercise 2.21.
+; Define square-tree both directly (i.e., without using any
+; higher-order procedures) and also by using map and recursion.
 
 (define (map proc items)
   (if (null? items)
