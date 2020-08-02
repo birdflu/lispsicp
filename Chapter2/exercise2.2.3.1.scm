@@ -2,11 +2,11 @@
 
 ; It takes a tree as argument and computes the sum of the
 ; squares of the leaves that are odd
-(define (sum-odd-squares tree)
+(define (sum-odd-squares-old tree)
   (cond
     ((null? tree) 0)
-    ((pair? tree) (+ (sum-odd-squares (car tree))
-                    (sum-odd-squares (cdr tree))))
+    ((pair? tree) (+ (sum-odd-squares-old (car tree))
+                    (sum-odd-squares-old (cdr tree))))
     (else (if (odd? tree) (square tree) 0))))
 
 ; It constructs a list of all the even Fibonacci numbers Fib(k), 
@@ -18,7 +18,7 @@
      b
      (fib-iter (+ a b) a (- count 1))))
 
-(define (even-fibs n)
+(define (even-fibs-old n)
   (define (next k)
     (if (> k n)
        '()
@@ -56,6 +56,14 @@
   (cond ((null? sequence) init)
        (else (op (car sequence) (accumulate op init (cdr sequence))))))
 
+;
+(define (sum-odd-squares tree)
+  (accumulate + 0 (map square (filter odd? (enumerate-tree tree)))))
+
+(define (even-fibs n)
+  (accumulate cons '() (filter even? (map fib (enumerate-interval 0 n))))
+)
+
 (define (square x)
   (* x x))
 
@@ -73,3 +81,8 @@ test-tree
 (accumulate + 0 (enumerate-interval 1 5))
 (accumulate * 1 (enumerate-interval 1 5))
 (accumulate cons '() (enumerate-interval 1 5))
+
+(sum-odd-squares-old test-tree)
+(sum-odd-squares test-tree)
+(even-fibs-old 10)
+(even-fibs 10)
