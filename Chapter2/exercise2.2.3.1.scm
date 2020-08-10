@@ -39,9 +39,9 @@
 
 ; enumerate integers
 (define (enumerate-interval low high)
-  (if (= low high)
-     (list high)
-     (cons low (enumerate-interval (+ 1 low) high))))
+  (if (> low high)
+     '()
+     (cons low (enumerate-interval (+ low 1) high))))
 
 ; filter odd? and even?
 (define (filter predicate sequence)
