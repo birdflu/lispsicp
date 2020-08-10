@@ -20,6 +20,19 @@
                (list 6 4)
                (list 6 5)))
 
-(check-equal? (sort (generate-pairs 1 6) list-less-than?) list1)
-(check-equal? (sort (generate-pairs-2 1 6) list-less-than?) list1)
-(check-equal? (sort (generate-pairs-3 1 6) list-less-than?) list1)
+(define prime-list (list
+                    (list 2 1)
+                    (list 3 2)
+                    (list 4 1)
+                    (list 4 3)
+                    (list 5 2)
+                    (list 6 1)
+                    (list 6 5)))
+
+  (check-equal? (sort (generate-pairs 1 6) list-less-than?) list1)
+  (check-equal? (sort (generate-pairs-2 1 6) list-less-than?) list1)
+  (check-equal? (sort (generate-pairs-3 1 6) list-less-than?) list1)
+  (check-equal? (sort (filter prime-sum? (generate-pairs-3 1 6)) list-less-than?) prime-list)
+  
+
+  
