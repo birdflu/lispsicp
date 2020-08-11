@@ -47,3 +47,10 @@
 (define (prime-sum-pairs n)
   (map (λ(x) (append x (list (pair-amount x))))
       (filter prime-sum? (generate-pairs-3 1 n))))
+
+(define (permutations s)
+  (if (null? s) 
+     (list nil)
+     (flatmap (λ(x)
+                (map (λ (p) (cons x p)) (permutations (remove x s))))
+             s)))
