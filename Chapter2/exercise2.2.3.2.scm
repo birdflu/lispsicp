@@ -33,8 +33,17 @@
              (map (λ (j) (list i j))
                  (enumerate-interval init (- i 1))))
           (enumerate-interval init n)))
-
+; pair sum
+(define (pair-amount pair)
+  (+ (car pair) (cadr pair)))
+  
 ; predicate for primed filter 
 (define (prime-sum? pair)
-  (prime? (+ (car pair) (cadr pair))))
+  (prime? (pair-amount pair)))
 
+; for each pair (i; j) that
+; passes through the filter, produce the triple (i; j; i + j).
+
+(define (prime-sum-pairs n)
+  (map (λ(x) (append x (list (pair-amount x))))
+      (filter prime-sum? (generate-pairs-3 1 n))))
