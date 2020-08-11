@@ -38,9 +38,18 @@
                 (list 6 1 7)
                 (list 6 5 11)))
 
-  (check-equal? (sort (generate-pairs 1 6) list-less-than?) list1)
-  (check-equal? (sort (generate-pairs-2 1 6) list-less-than?) list1)
-  (check-equal? (sort (generate-pairs-3 1 6) list-less-than?) list1)
-  (check-equal? (sort (filter prime-sum? (generate-pairs-3 1 6)) list-less-than?) prime-list)
-  (check-equal? (sort (prime-sum-pairs 6) list-less-than?) result)
- 
+(define permutate-list (list
+                        (list 1 2 3)
+                        (list 1 3 2)
+                        (list 2 1 3)
+                        (list 2 3 1)
+                        (list 3 1 2)
+                        (list 3 2 1)))
+
+(check-equal? (sort (generate-pairs 1 6) list-less-than?) list1)
+(check-equal? (sort (generate-pairs-2 1 6) list-less-than?) list1)
+(check-equal? (sort (generate-pairs-3 1 6) list-less-than?) list1)
+(check-equal? (sort (filter prime-sum? (generate-pairs-3 1 6)) list-less-than?) prime-list)
+(check-equal? (sort (prime-sum-pairs 6) list-less-than?) result)
+(check-equal? (permutations '(1 2 3)) permutate-list)
+            
