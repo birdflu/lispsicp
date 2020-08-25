@@ -1,4 +1,6 @@
 (require (planet "sicp.ss" ("soegaard" "sicp.plt" 2 1)))
+
+(define make-vect cons)
     
 (define (make-segment start end)
   (cons start end))
