@@ -5,6 +5,12 @@
 (define (make-segment start end)
   (cons start end))
 
+(define (segment-middle s)
+  (cons (/ (+ (caar s) (cadr s)) 2) (/ (+ (cdar s) (cddr s)) 2)))
+
+(define (draw-line v1 v2)
+  (make-segment v1 v2))
+
 (define (polyline vertices)
   (if (null? (cdr vertices))
       '()

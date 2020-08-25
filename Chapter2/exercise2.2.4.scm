@@ -1,4 +1,6 @@
 #lang scheme
+(include "../images.scm")
+
 (define (segments->painter segment-list)
   (lambda (frame)
     (for-each
