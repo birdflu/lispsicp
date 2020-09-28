@@ -91,4 +91,4 @@
          (error "unknown expression type: DERIV" exp))))
 
 (define (deriv exp var)
-  (prefix-deriv (infix-to-prefix exp) var))
+  (prefix-deriv (infix-to-prefix exp '+) var))
