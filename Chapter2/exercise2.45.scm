@@ -1,4 +1,4 @@
-#lang scheme
+;#lang scheme
 (include "../images.scm")
 
 (define (square-of-four tl tr bl br)
