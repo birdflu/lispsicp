@@ -29,7 +29,8 @@
     (and
      (not (equal? a nil))
      (or (= (car a) (car b)) (= (cadr a) (cadr b)))
-     (not (and (= (car a) (car b)) (= (cadr a) (cadr b)))))))
+     ;(not (and (= (car a) (car b)) (= (cadr a) (cadr b)))))))
+     (not (equal? a b)))))
 
 (define (diagonal-neighborhoods item)
   (define (neighborhoods item min max direction)
@@ -44,7 +45,7 @@
    (remove item (neighborhoods item 1 8 "NE"))
    (remove item (neighborhoods item 1 8 "NW"))
    (remove item (neighborhoods item 1 8 "SE"))
-   (remove item(neighborhoods item 1 8 "SW"))))
+   (remove item (neighborhoods item 1 8 "SW"))))
 
 (define (safe? k positions)
   (let ((item (car (filter (λ (x) (= (cadr x) k)) positions))))
