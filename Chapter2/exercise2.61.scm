@@ -1,5 +1,3 @@
-(include "exercise2.3.3.2.scm")
-
 (define (adjoin-set x set)
   (cond ((null? set) (cons x set))
         ((= x (car set)) set)
