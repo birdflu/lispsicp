@@ -1,4 +1,3 @@
-#lang scheme
 (define (entry tree) (car tree))
 
 (define (left-branch tree) (cadr tree))
@@ -17,7 +16,7 @@
          (element-of-set? x (right-branch set)))))
 
 (define (adjoin-set x set)
-  (cond ((null? set) (make-tree x ’() ’()))
+  (cond ((null? set) (make-tree x '() '()))
         ((= x (entry set)) set)
         ((< x (entry set))
          (make-tree (entry set)
