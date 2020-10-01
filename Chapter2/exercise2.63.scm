@@ -1,4 +1,3 @@
-#lang scheme
 (include "exercise2.3.3.3.scm")
 (define (tree->list-1 tree)
   (display ".")
@@ -32,4 +31,4 @@
         (display (tree->list-2 (car trees))) (newline)
         (test (cdr trees)))))
 
-(test (list a b c d))
+;(test (list a b c d))
