@@ -16,11 +16,12 @@
   (if (null? items) 
       '()
       (let ((result (car items))
-            (source (cadr items)))
-        (display "=> ") (display result) (display source) (newline)
+            (source (cadr items))
+            (tail (caddr items)))
+        (display "=> ") (display result) (display source) (display tail) (newline)
         (let ((item (if (null? source)
                         '()
-                        (list (append result (list (car source))) (cdr source)))))
+                        (list (append result (list (car source))) (cdr source) tail))))
           (append (list item) (permutate item)))
       ))))
 
@@ -33,10 +34,10 @@
 (define (add-prefix prefix)
   (lambda (x) (cons prefix (list x))))
 
-(get-init '(1 2 3) (length '(1 2 3)))
-(map (add-prefix '()) (get-init '(1 2 3) (length '(1 2 3))))
-(flatmap (lambda (x) (permutate x)) (map (add-prefix '()) (get-init '(1 2 3) (length '(1 2 3)))))
-(map car 
-     (filter (lambda (x) (not (null? x)))
-     (flatmap (lambda (x) (permutate x)) (map (add-prefix '()) (get-init '(1 2 3) (length '(1 2 3)))))))
-
+;(get-init '(1 2 3) (length '(1 2 3)))
+;(map (add-prefix '()) (get-init '(1 2 3) (length '(1 2 3))))
+;(flatmap (lambda (x) (permutate x)) (map (add-prefix '()) (get-init '(1 2 3) (length '(1 2 3)))))
+;(map car 
+;     (filter (lambda (x) (not (null? x)))
+;     (flatmap (lambda (x) (permutate x)) (map (add-prefix '()) (get-init '(1 2 3) (length '(1 2 3)))))))
+(flatmap (lambda (x) (permutate x)) '( (() (1 2 3) (1 2 3)) ))
