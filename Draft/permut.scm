@@ -12,20 +12,32 @@
 ; (23)(1) ->
 ; (231)()
 
-(define (perm first second constant tail)
+;(define (perm first second constant tail)
+;;  (display first) (display second) (newline)
+;  (let ((null-first? (null? first))
+;        (null-second? (null? second)))
+;  (cond [(and null-first? null-second?) '()]
+;        [(and null-second? (not null-first?))
+;         (perm  (cdr first) constant constant tail)]
+;        [(and (not null-second?) null-first?)
+;         '()]
+;;          (cons (list (car second)) (perm first (cdr second) constant)) ]
+;        [else 
+;          (append 
+;            (list (cons (car first) (list (car second)))) 
+;            (perm first (cdr second) constant tail))]
+;        )))
+;
+
+(define (perm first second constant)
 ;  (display first) (display second) (newline)
   (let ((null-first? (null? first))
         (null-second? (null? second)))
-  (cond [(and null-first? null-second?) '()]
-        [(and null-second? (not null-first?))
-         (perm  (cdr first) constant constant tail)]
-        [(and (not null-second?) null-first?)
-         '()]
-;          (cons (list (car second)) (perm first (cdr second) constant)) ]
+  (cond [(and null-second? (not null-first?)) '()]
         [else 
           (append 
-            (list (cons (car first) (list (car second)))) 
-            (perm first (cdr second) constant tail))]
+            (list (append first (list (car second)))) 
+            (perm first (cdr second) constant))]
         )))
 
 
@@ -35,19 +47,23 @@
       (remove-sublist (remove (car sublist) sublist) (remove (car sublist) list))))
 
 
-(define (permutate result tail)
-  (map (lambda (x) (cons x (list (remove-sublist x tail))))
-       (perm result tail tail '())))
+(define (permutate items)
+  (let ((result (car items))
+        (tail (cadr items)))
+;      (display "=>") (display result) (display tail) (newline)
+      (map (lambda (x) (cons x (list (remove-sublist x tail))))
+           (perm result tail tail))))
+  
+(define (permutation items)
+  (let ((r (permutate items)))
+    (display "=>") (display r) (newline)
+    (map permutate r)))
 
-
-
-
-
-
-;(perm  '(()) '(1 2 3) '(1 2 3))
-;(perm  '(1) '(2 3) '(2 3))
-(permutate  '(2) '(1 3))
-;(perm  '(3) '(2 1) '(2 1))
-
-
+        
+;(perm  '() '(1 2 3) '(1 2 3))
+;(perm  '(2) '(1 3) '(1 3))
+(permutate  '(( 2 ) ( 1 3 )))
+(permutate  '(( 2 1 ) ( 3 )))
+;(perm '(2 1) '(3) '(3))
+(permutation  '((2) (1 3)))
 
