@@ -55,7 +55,20 @@
 ;(flatmap permutate (flatmap permutate (permutate  '(() (1 2 3)))))
 ;(flatmap permutate (flatmap permutate (flatmap permutate (permutate  '(() (1 2 3))))))
 ;(permutation (permutate '(() (1 2 3))))
-(permutation '((() (1 2 3))))
+;(permutation '((() (1 2 3))))
+
+(define (main items)
+  (map car (permutation items)))
+
+(main '((() (1 2))))
+(main '((() (1 2 3))))
+(main '((() (1 2 3 4))))
+(length (main '((() (1 2)))))
+(length (main '((() (1 2 3)))))
+(length (main '((() (1 2 3 4)))))
+
+
+
 
 
 
