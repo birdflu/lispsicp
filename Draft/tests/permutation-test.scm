@@ -46,5 +46,4 @@
 (check-equal? (length (main '(1 2))) (permutation-count 2))
 (check-equal? (length (main '(1 2 3))) (permutation-count 3))
 (check-equal? (length (main '(1 2 3 4))) (permutation-count 4))
-(main '(1 2 3))
 
