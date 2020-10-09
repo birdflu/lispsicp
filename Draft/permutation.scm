@@ -1,16 +1,19 @@
-#lang scheme
 (include "../utils.scm")
-; () (123) -> 
-; (1)(23)
-; (2)(13)
-; (3)(12)
-; 
-; (2)(13) ->
-; (21)(3)
-; (23)(1)
-; 
-; (23)(1) ->
-; (231)()
+; algorithm "main" generates all possible permutations of all subset of the set
+
+; (permutate '(()(1 2 3)) )
+;  ()(123) -> (1)(2 3) -> (1 2)(3) -> (1 2 3)()
+;                      -> (1 3)(2) -> (1 3 2)()
+;
+;          -> (2)(1 3) -> (2 1)(3) -> (2 1 3)()
+;                      -> (2 3)(1) -> (2 3 1)()
+;             
+;          -> (3)(1 2) -> (3 1)(2) -> (3 1 2)()
+;                      -> (3 2)(1) -> (3 2 1)()
+
+; (main (1 2 3)) => (() (1) (2) (3) (1 2) (1 3) (2 1) (2 3) (3 1) (3 2) 
+;                       (1 2 3) (1 3 2) (2 1 3) (2 3 1) (3 1 2) (3 2 1))
+
 
 (define (perm first second constant)
 ;  (display first) (display second) (newline)
@@ -29,7 +32,6 @@
       list
       (remove-sublist (remove (car sublist) sublist) (remove (car sublist) list))))
 
-
 (define (permutate items)
   (let ((result (car items))
         (tail (cadr items)))
@@ -42,30 +44,9 @@
       '()
     (append items (permutation (flatmap permutate items)))))
 
-        
-;(perm  '() '(1 2 3) '(1 2 3))
-;(perm  '(2) '(1 3) '(1 3))
-;(permutate  '(( 2 ) ( 1 3 )))
-;(permutate  '(( 2 1 ) ( 3 )))
-;(perm '(2 1) '(3) '(3))
-;(permutation  '(() (1 2)))
-;(permutation  '(() (1 2 3)))
-;(permutate  '(() (1 2 3)))
-;(flatmap permutate (permutate  '(() (1 2 3))))
-;(flatmap permutate (flatmap permutate (permutate  '(() (1 2 3)))))
-;(flatmap permutate (flatmap permutate (flatmap permutate (permutate  '(() (1 2 3))))))
-;(permutation (permutate '(() (1 2 3))))
-;(permutation '((() (1 2 3))))
-
 (define (main items)
-  (map car (permutation items)))
+  (map car (permutation (list (list '() items)))))
 
-(main '((() (1 2))))
-(main '((() (1 2 3))))
-(main '((() (1 2 3 4))))
-(length (main '((() (1 2)))))
-(length (main '((() (1 2 3)))))
-(length (main '((() (1 2 3 4)))))
 
 
 
