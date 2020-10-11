@@ -15,7 +15,7 @@
 ;                       (1 2 3) (1 3 2) (2 1 3) (2 3 1) (3 1 2) (3 2 1))
 
 
-(define (perm first second constant)
+(define (perm first second)
 ;  (display first) (display second) (newline)
   (let ((null-first? (null? first))
         (null-second? (null? second)))
@@ -23,7 +23,7 @@
         [else 
           (append 
             (list (append first (list (car second)))) 
-            (perm first (cdr second) constant))]
+            (perm first (cdr second)))]
         )))
 
 
@@ -37,8 +37,8 @@
         (tail (cadr items)))
 ;      (display "=>") (display result) (display tail) (newline)
       (map (lambda (x) (cons x (list (remove-sublist x tail))))
-           (perm result tail tail))))
-  
+           (perm result tail))))
+ 
 (define (permutation items)
   (if (null? items)
       '()
