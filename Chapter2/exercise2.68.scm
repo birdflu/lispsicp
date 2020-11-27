@@ -8,9 +8,9 @@
 ; Test your procedure by encoding the result you obtained in
 ; Exercise 2.67 with the sample tree and seeing whether it is
 ; the same as the original sample message.
-(include "exercise2.67.scm")
-(include "exercise2.3.3.scm")
 (include "../utils.scm")
+(include "exercise2.3.3.scm")
+(include "exercise2.67.scm")
 
 (define (encode message tree)
   (if (null? message)

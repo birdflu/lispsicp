@@ -57,11 +57,11 @@
 
 
 ; adjoin element into list, saving its increasing order of weight. 
-(define (adjoin-set x set)
+(define (adjoin-huffman-list-set x set)
   (cond ((null? set) (list x))
         ((< (weight x) (weight (car set))) (cons x set))
         (else (cons (car set)
-                    (adjoin-set x (cdr set))))))
+                    (adjoin-huffman-list-set x (cdr set))))))
 
 ; The following procedure takes a list of symbol-frequency pairs such as
 ; ((A 4) (B 2) (C 1) (D 1)) and constructs an initial ordered set of
@@ -70,7 +70,7 @@
   (if (null? pairs)
       '()
       (let ((pair (car pairs)))
-        (adjoin-set (make-leaf (car pair)   ; symbol
+        (adjoin-huffman-list-set (make-leaf (car pair)   ; symbol
                                (cadr pair)) ; frequency
                     (make-leaf-set (cdr pairs))))))
 

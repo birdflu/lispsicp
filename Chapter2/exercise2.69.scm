@@ -6,8 +6,7 @@
 ; merge the smallest-weight elements
 ; of the set until there is only one element le, which is the
 ; desired Huffman tree. 
-(include "../utils.scm")
-(include "exercise2.3.4.scm")
+(include "exercise2.68.scm")
 
 (define (generate-huffman-tree pairs)
   (successive-merge (make-leaf-set pairs)))
