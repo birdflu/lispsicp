@@ -6,9 +6,9 @@
 (define tab (make-table))
 
 
-;(check-equal? (insert! 'a 1 tab) 'ok)
-;(check-equal? (insert! 'b 2 tab) 'ok)
+(check-equal? (put 'a 'b 'ab) 'ok)
+(check-equal? (put 'a 'c 'ac) 'ok)
 
-;(check-equal? (lookup 'a tab) 1)
-;(check-equal? (lookup 'b tab) 2)
+(check-equal? (get 'a 'c) 'ac)
+(check-equal? (get 'a 'b) 'ab)
 
