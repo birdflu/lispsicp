@@ -3,9 +3,6 @@
 
 (include "../exercise3.3.3-2.scm")
 
-(define tab (make-table))
-
-
 (check-equal? (put 'a 'b 'ab) 'ok)
 (check-equal? (put 'a 'c 'ac) 'ok)
 
