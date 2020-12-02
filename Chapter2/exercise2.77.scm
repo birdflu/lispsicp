@@ -27,10 +27,10 @@
 (define (div x y) (apply-generic 'div x y))
 
 (define (square x) (* x x))
-(define (real-part c) ((get (car c) 'real-part) c))
-(define (imag-part c) ((get (car c) 'imag-part) c))
-(define (magnitude c) ((get (car c) 'magnitude) c))
-(define (angle c) ((get (car c) 'angle) c))
+(define (real-part c) ((get (cadr c) 'real-part) c))
+(define (imag-part c) ((get (cadr c) 'imag-part) c))
+(define (magnitude c) ((get (cadr c) 'magnitude) c))
+(define (angle c) ((get (cadr c) 'angle) c))
 
 (define (install-scheme-number-package)
   (define (tag x) (attach-tag 'scheme-number x))
@@ -124,19 +124,19 @@
        (λ (z1 z2) (tag (div-complex z1 z2))))
   
   (put 'make-from-real-imag 'complex
-       (λ (x y) (attach-tag 'rectangular (make-from-real-imag x y))))
+       (λ (x y) (tag (make-from-real-imag x y))))
   (put 'make-from-mag-ang 'complex
-       (λ (r a) (attach-tag 'polar (make-from-mag-ang r a))))
+       (λ (r a) (tag (make-from-mag-ang r a))))
   
   (put 'make-from-real-imag 'rectangular
-       (λ (x y) (tag (cons x y))))
+       (λ (x y) (attach-tag 'rectangular (cons x y))))
   (put 'make-from-mag-ang 'rectangular
-       (λ (r a) (tag (cons (* r (cos a)) (* r (sin a))))))
+       (λ (r a) (attach-tag 'rectangular (cons (* r (cos a)) (* r (sin a))))))
   (put 'make-from-real-imag 'polar
-       (λ (x y) (tag (cons (sqrt (+ (square x) (square y)))
+       (λ (x y) (attach-tag 'polar (cons (sqrt (+ (square x) (square y)))
                            (atan y x)))))
   (put 'make-from-mag-ang 'polar
-       (λ (r a) (tag (cons r a))))
+       (λ (r a) (attach-tag 'polar (cons r a))))
   
   (put 'real-part '(complex) real-part)
   (put 'imag-part '(complex) imag-part)
