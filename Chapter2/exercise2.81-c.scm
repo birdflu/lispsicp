@@ -32,11 +32,11 @@
                               (apply-generic op (t1->t2 a1) a2))
                             (t2->t1
                               (apply-generic op a1 (t2->t1 a2)))
-                            (else (error "No method for these types"
+                            (else (error "No method for these types . "
                                          (list op type-tags)))))
-                    (error "No method for these types"
+                    (error "No method for these types .. "
                            (list op type-tags))))
-              (error "No method for these types"
+              (error "No method for these types ... "
                      (list op type-tags)))))))
 
 
@@ -192,9 +192,12 @@
   'done)
 
 ; type coercion
-(define (type-coercion-package)
+(define (install-type-coercion-package)
   (define (scheme-number->complex n)
     (make-complex-from-real-imag (contents n) 0))
+  (put-coercion 'scheme-number
+                'complex
+                scheme-number->complex)
   'done)
 
 
