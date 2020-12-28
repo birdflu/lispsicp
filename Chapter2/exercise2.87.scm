@@ -6,8 +6,8 @@
   ;; internal procedures
   ;; representation of poly
   (define (make-poly variable term-list) (cons variable term-list))
-  (define (variable p) (car p))
-  (define (term-list p) (cdr p))
+  (define (variable p) (cadr p))
+  (define (term-list p) (cddr p))
   ;  ⟨procedures same-variable? and variable? from section 2.3.2⟩
   ;; representation of terms and term lists
   (define (adjoin-term term term-list)
@@ -70,7 +70,9 @@
   (put 'mul '(polynomial polynomial)
       (λ (p1 p2) (tag (mul-poly p1 p2))))
   (put '=zero? '(polynomial)
-      (λ (x) (and (= (car (cdaddr x)) 0) (eq? (cdddr x) '()))))
+      (λ (x) (or
+              (eq? (cddr x) '())
+              (and (= (car (cdaddr x)) 0) (eq? (cdddr x) '())))))
   (put 'make 'polynomial
        (λ (var terms) (tag (make-poly var terms))))
   'done)
