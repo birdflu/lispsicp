@@ -61,8 +61,8 @@
   ;    от опорного элемента. Рекурсия не применяется к массиву, в котором
   ;    только один элемент или отсутствуют элементы.
     (define (divide left right pivot items)
-      (display items) (newline)
-      (display "[") (display left) (display right) (display "]") (newline)
+;      (display items) (newline)
+;      (display "[") (display left) (display right) (display "]") (newline)
       (cond ((and (eq? items '()) (eq? left '()) (eq? right '())) '())
             ((and (eq? items '()) (eq? left '())) (divide '() '() (car right) right))
             ((and (eq? items '()) (eq? right '())) (divide '() '() (car left) left))
