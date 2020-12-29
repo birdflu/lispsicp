@@ -51,3 +51,28 @@
               (if (= (car x) (car y))
                  (list-less-than? (cdr x) (cdr y))
                  (< (car x) (car y))))))
+
+; quick-sort
+(define (quick-sort rule items)
+  ; 1. Выбрать первый элемент из массива. Назовём его опорным.
+  ; 2. Разбиение: перераспределение элементов в массиве таким образом,
+  ;    что элементы меньше опорного помещаются перед ним, а больше или равные после.
+  ; 3. Рекурсивно применить первые два шага к двум подмассивам слева и справа
+  ;    от опорного элемента. Рекурсия не применяется к массиву, в котором
+  ;    только один элемент или отсутствуют элементы.
+    (define (divide left right pivot items)
+      (display items) (newline)
+      (display "[") (display left) (display right) (display "]") (newline)
+      (cond ((and (eq? items '()) (eq? left '()) (eq? right '())) '())
+            ((and (eq? items '()) (eq? left '())) (divide '() '() (car right) right))
+            ((and (eq? items '()) (eq? right '())) (divide '() '() (car left) left))
+            ((and (not (eq? items '())) (eq? (cdr items) '()) (eq? left '()) (eq? right '()))
+             items)
+            ((eq? items '())
+             (append (divide '() '() (car left) left) (divide '() '() (car right) right)))
+            (else (if (rule (car items) pivot)
+                      (divide (cons (car items) left) right pivot (cdr items))
+                      (divide left (cons (car items) right) pivot (cdr items))))))
+    (if (eq? items '())
+        items
+        (divide '() '() (car items) items)))
