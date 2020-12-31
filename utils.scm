@@ -1,5 +1,3 @@
-; test git
-
 ; nil
 (define nil '())
 
@@ -52,38 +50,52 @@
                    (list-less-than? (cdr x) (cdr y))
                    (< (car x) (car y))))))
 
-; quick-sort 
+; quick-sort
 ;
-; (quick-sort > car '(3 2 1 5))
-; {5 3 2 1}
-; (quick-sort < caar '{ {1 1} {3 3} {2 2} {0 5} })
-; {{0 5} {1 1} {2 2} {3 3}}
-(define (quick-sort rule take-pivot-rule items)
+; (quick-sort < (λ(x) x) '(1 1 6 4 6 1 4 -1))
+; (-1 1 1 1 4 4 6 6)
+; (quick-sort < car '((6 1) (6 3) (1 3) (3 3) (3 4) (1 1) (6 0)))
+; ((1 1) (1 3) (3 3) (3 4) (6 1) (6 3) (6 0))
+(define (quick-sort rule comparison-rule items)
   ; 1. Выбрать первый элемент из массива. Назовём его опорным.
   ; 2. Разбиение: перераспределение элементов в массиве таким образом,
   ;    что элементы меньше опорного помещаются перед ним, а больше или равные после.
   ; 3. Рекурсивно применить первые два шага к двум подмассивам слева и справа
   ;    от опорного элемента. Рекурсия не применяется к массиву, в котором
   ;    только один элемент или отсутствуют элементы.
+  (define (candidate items)
+    (if (empty? items)
+        '()
+        (car items)))
+  (define (comparison-base pivot-candidate)
+    (if (empty? pivot-candidate)
+        '()
+        (comparison-rule pivot-candidate)))
   (define (divide left right pivot items)
-    ; (display items) (newline)
-    ; (display "[") (display left) (display right) (display "]") (newline)
-    (cond ((and (eq? items '()) (eq? left '()) (eq? right '()))
+    ;    (display items) (newline)
+    ;    (display "[") (display left) (display pivot) (display right) (display "]") (newline)
+    (define (tail items)
+      (if (eq? items '())
+          '()
+          (cdr items)))
+    (cond ((empty? pivot)
            '())
-          ((and (eq? items '()) (eq? left '()))
-           (divide '() '() (take-pivot-rule right) right))
-          ((and (eq? items '()) (eq? right '()))
-           (divide '() '() (take-pivot-rule left) left))
-          ((and (not (eq? items '())) (eq? (cdr items) '()) (eq? left '()) (eq? right '()))
-           items)
-          ((eq? items '())
+          ((and (not (empty? pivot)) (empty? items) (empty? left) (empty? right))
+           (list pivot))
+          ((and (not (empty? pivot)) (not (empty? items)) (empty? (tail items))
+                (empty? left) (empty? right))
+           (if (rule (comparison-base pivot) (comparison-base (candidate items)))
+               (cons (list pivot) items)
+               (cons (candidate items) (list pivot))))
+          ((and (not (empty? pivot)) (empty? items))
            (append
-             (divide '() '() (take-pivot-rule left) left)
-             (divide '() '() (take-pivot-rule right) right)))
-          (else (if (rule (take-pivot-rule items) pivot)
-                    (divide (cons (car items) left) right pivot (cdr items))
-                    (divide left (cons (car items) right) pivot (cdr items))))))
-  (if (eq? items '())
+             (divide '() '() (candidate left) (tail left))
+             (list pivot)
+             (divide '() '() (candidate right) (tail right))))
+          ((and (not (empty? pivot)) (not (empty? items)))
+           (if (rule (comparison-base (candidate items)) (comparison-base pivot))
+               (divide (cons (candidate items) left) right pivot (tail items))
+               (divide left (cons (candidate items) right) pivot (tail items))))))
+  (if (empty? items)
       items
-      (divide '() '() (take-pivot-rule items) items)))
-
+      (divide '() '() (candidate items) (cdr items))))
