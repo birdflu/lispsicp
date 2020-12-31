@@ -31,6 +31,16 @@
 (define (flatmap proc seq)
   (accumulate append nil (map proc seq)))
 
+; distinct
+(define (distinct sorted-items)
+  (if (empty? sorted-items)
+    '()
+    (if (empty? (cdr sorted-items))
+      sorted-items
+      (if (equal? (car sorted-items) (cadr sorted-items))
+        (distinct (cons (car sorted-items) (cddr sorted-items)))
+        (cons (car sorted-items) (distinct (cdr sorted-items)))))))
+
 ; print list
 (define (print items)
   (define (print-list items)
@@ -72,8 +82,8 @@
         '()
         (comparison-rule pivot-candidate)))
   (define (divide left right pivot items)
-    ;    (display items) (newline)
-    ;    (display "[") (display left) (display pivot) (display right) (display "]") (newline)
+;    (display items) (newline)
+;    (display "[") (display left) (display pivot) (display right) (display "]") (newline)
     (define (tail items)
       (if (eq? items '())
           '()
@@ -85,7 +95,7 @@
           ((and (not (empty? pivot)) (not (empty? items)) (empty? (tail items))
                 (empty? left) (empty? right))
            (if (rule (comparison-base pivot) (comparison-base (candidate items)))
-               (cons (list pivot) items)
+               (cons pivot items)
                (cons (candidate items) (list pivot))))
           ((and (not (empty? pivot)) (empty? items))
            (append
@@ -99,3 +109,11 @@
   (if (empty? items)
       items
       (divide '() '() (candidate items) (cdr items))))
+
+;(sparse->sparse-with-zeros '{{6 9} {5 6} {5 6} {4 3} {4 4} {4 3} {3 15} {3 15} {3 2} {3 2} {2 10} {2 10} {2 1} {1 5} {{1 5}} {0 25}})
+
+;(quick-sort > car '{{1 5} {0 25} {1 5} {3 15}} )
+;{{3 15} {1 5} {{1 5}} {0 25}}
+;(quick-sort > (λ (x) x) '{1 0 1 3} )
+;{3 1 {1} 0}
+
