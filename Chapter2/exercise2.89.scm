@@ -103,7 +103,7 @@
                 (else (cons 1th-term 
                             (sparse->sparse-with-zeros (cons 2th-term 2th-tail))))
                 ))))
-  
+
   
   ;; interface to rest of the system
   (define (tag p) (attach-tag 'polynomial p))
