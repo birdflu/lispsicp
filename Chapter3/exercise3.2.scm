@@ -1,5 +1,3 @@
-(include "exercise3.1.1.scm")
-
 ; Write a procedure make-monitored that takes as input a procedure, f,
 ; that itself takes one input. The result returned by make-monitored 
 ; is a third procedure, say mf, that keeps track of the number of 
