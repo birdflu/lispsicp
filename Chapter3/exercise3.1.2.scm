@@ -1,11 +1,10 @@
+(require rnrs)
 
 (define (rand-update x)
-  (let ((a (expt 7 13))
-        (c 351349)
-
-        (m (expt 2 31)))
-  (mod (+ (* a x) c) m)))
-
+  (let ((a 421)
+        (c 1663)
+        (m 7875))
+    (mod (+ (* a x) c) m)))
 (define rand (let ((x 0))
                (lambda ()
                  (set! x (rand-update x))
