@@ -1,5 +1,6 @@
 (require rnrs)
 
+
 (define (rand-update x)
   (let ((a 421)
         (c 1663)
