@@ -1,0 +1,57 @@
+(require rnrs)
+(require rnrs/mutable-pairs-6)
+
+(define (make-queue)
+  (let ((front-ptr '())
+        (rear-ptr '()))
+    (define (set-front-ptr! item)
+      (set! front-ptr item))
+    (define (set-rear-ptr! item)
+      (set! rear-ptr item))
+    (define (insert-queue! item)
+      (let ((new-pair (cons item '())))
+        (cond ((null? front-ptr)
+               (set! front-ptr new-pair)
+               (set! rear-ptr new-pair)
+               (cons front-ptr rear-ptr))
+              (else
+               (set-cdr! rear-ptr new-pair)
+               (set! rear-ptr new-pair)
+               (cons front-ptr rear-ptr)))))
+    (define (delete-queue!)
+      (cond ((null? front-ptr)
+             (error "DELETE! called with an empty queue" (cons front-ptr rear-ptr)))
+            (else (set! front-ptr (cdr front-ptr))
+                  (cons front-ptr rear-ptr))))
+    (define (front-queue)
+      (if (null? front-ptr)
+          (error "FRONT called with an empty queue" (cons front-ptr rear-ptr))
+          front-ptr))
+ 
+    (define (dispatch m)
+      (cond ((eq? m 'empty?)
+             (null? front-ptr))
+            ((eq? m 'insert)
+             insert-queue!)
+            ((eq? m 'delete)
+             delete-queue!)
+            ((eq? m 'front)
+             front-queue)
+            (else (error "Unknown operation" m))))
+    dispatch))
+
+(define (empty-queue? queue)
+  (queue 'empty?))
+
+(define (insert-queue! queue item)
+  ((queue 'insert) item))
+
+(define (delete-queue! queue)
+  ((queue 'delete)))
+
+(define (front-queue queue)
+  ((queue 'front)))
+
+(define q1 (make-queue))
+
+
