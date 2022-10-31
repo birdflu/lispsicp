@@ -1,7 +1,7 @@
 #lang scheme
 
 (require rackunit)
-(include "../exercise3.33.scm")
+(include "../exercise3.35.scm")
 
 (check-equal?
   (procedure? (probe "A" A))
@@ -13,22 +13,13 @@
   '#t
   )
 
-(check-equal?
-  (procedure? (probe "C" C))
-  '#t
-  )
 
 (check-equal?
-  (averager A B C)
+  (calcsquarer A B)
   'ok
   )
 
 (check-equal?
-  (set-value! B 10 'user)
-  'done
-  )
-
-(check-equal?
-  (set-value! C 40 'user)
+  (set-value! B 9 'user)
   'done
   )
